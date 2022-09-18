@@ -2,6 +2,7 @@ package d16_09_2022;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -56,11 +57,17 @@ public class Zadatak1 {
 		driver.get("https://boomf.com/apps/proxy/boomf-bomb/i-bloody-love-you");
 		
 		List<WebElement> pozicijeSlika = driver.findElements(By.xpath("//*[contains(@class, 'iltlXU')]/div"));
+		ArrayList<String> sveSlike = new ArrayList<String>();
+		sveSlike.add("imgs/front_ivanmatejev.jpg");
+		sveSlike.add("imgs/back_ivanmatejev.jpg");
+		sveSlike.add("imgs/right_ivanmatejev.jpg");
+		sveSlike.add("imgs/left_ivanmatejev.jpg");
+		
 		
 		for ( int i = 1; i < 5; i++ ) {
 			pozicijeSlika.get(i-1).click();
 			driver.findElement(By.xpath("//*[text()='+ Add photo']")).click();
-			driver.findElement(By.id("imageUpload")).sendKeys(new File("imgs/slika1.jpg").getAbsolutePath());
+			driver.findElement(By.id("imageUpload")).sendKeys(new File(sveSlike.get(i-1)).getAbsolutePath());
 			
 			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@class, 'fqhTDx')]/div[" + i + "]")));
 			
