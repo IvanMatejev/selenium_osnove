@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import katalon_pages.CartPages;
+import katalon_pages.LoginPage;
 import katalon_pages.NavPage;
 import katalon_pages.ProductPage;
 
@@ -21,18 +22,21 @@ public abstract class BasicTest {
 	    protected NavPage navPage;
 	    protected ProductPage productPage;
 	    protected CartPages cartPage;
+	    protected LoginPage loginPage;
 	    
 
 	    @BeforeClass
 	    public void beforeClass() {
 	        System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
 	        driver = new ChromeDriver();
+	        driver.manage().window().maximize();
 	        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
 	        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	        cartPage = new CartPages(driver,wait);
 	        productPage = new ProductPage(driver,wait);
 	        navPage = new NavPage(driver,wait);
+	        loginPage = new LoginPage(driver, wait);
 
 	    }
 	    @BeforeMethod

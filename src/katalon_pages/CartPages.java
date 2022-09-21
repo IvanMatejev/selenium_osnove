@@ -47,7 +47,6 @@ public class CartPages {
 	}
 	
 	public void waitForNumberOfElementsToBe( int productNum) {
-//		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.numberOfElementsToBe(
 				By.className("cart_item"),
 				productNum));

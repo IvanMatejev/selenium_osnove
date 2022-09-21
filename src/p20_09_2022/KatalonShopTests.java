@@ -4,8 +4,11 @@ import static org.testng.Assert.assertEquals;
 
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -92,6 +95,117 @@ public class KatalonShopTests extends BasicTest {
 		Assert.assertTrue(
 				cartPage.getRows().size() == 0,
 				"Greska: Proizvoda ima vise od 0");	
+	}
+	
+	@Test(priority=30)
+	public void verifyErrorIsDisplayesWhenUsernameIsMissing() throws InterruptedException {
+//		Test #3:  Verify error is displayed when username is missing
+//		Prioritet = 30
+//		Koraci:
+//	Kliknite na my account link
+//	Klik na login dugme
+//	Verifikovati da je prikazana poruka Error: Username is required.
+		navPage.getMyAccount().click();
+		
+		loginPage.getloginBtn().click();
+		
+		loginPage.waitForErrorMsg();
+		
+		Assert.assertEquals(
+				loginPage.getErrorMsg().getText(),
+				"Error: Username is required.",
+				"Error: message is wrong");	
+	}
+	
+	@Test(priority=40)
+	public void verifyErrorIsDisplayedWhenPasswordIsMissing() {
+//		Test #4:  Verify error is displayed when password is missing
+//		Prioritet = 40
+//		Koraci:
+//	Kliknite na my account link
+//	Unesite username customer
+//	Klik na login dugme
+//	Verifikovati da je prikazana poruka ERROR: The password field is empty.
+		navPage.getMyAccount().click();
+		
+		loginPage.getUserNameInput().sendKeys("customer");
+		loginPage.getloginBtn().click();
+		loginPage.waitForErrorMsg();
+		
+		Assert.assertEquals(
+				loginPage.getErrorMsg().getText(),
+				"ERROR: The password field is empty.",
+				"Error: message is wrong");	
+	}
+	
+	@Test(priority=50)
+	public void verifyErrorIsDisplayedWhenPassworIsWrong() {
+//		Test #5:  Verify error is displayed when password is wrong
+//		Prioritet = 50
+//		Koraci:
+//	Kliknite na my account link
+//	Unesite username customer
+//	Unesite nevalidan pass invalidpassword
+//	Klik na login dugme
+//	Verifikovati da je prikazana poruka ERROR: The password you entered for the username customer is incorrect. Lost your password?
+		navPage.getMyAccount().click();
+		
+		loginPage.getUserNameInput().sendKeys("customer");
+		loginPage.getPasswordInput().sendKeys("invalidpassword");
+		loginPage.getloginBtn().click();
+		loginPage.waitForErrorMsg();
+		
+		Assert.assertEquals(
+				loginPage.getErrorMsg().getText(),
+				"ERROR: The password you entered for the username customer is incorrect. Lost your password?",
+				"Error: message is wrong");		
+	}
+	
+	@Test(priority=60)
+	public void verifyErrorIsDisplatedWhenUserDoesNotExist() {
+//		Test #6:  Verify error is displayed when user does not exist
+//		Prioritet = 60
+//		Koraci:
+//	Kliknite na my account link
+//	Unesite username invaliduser
+//	Unesite nevalidan pass (ex: pass1234)
+//	Klik na login dugme
+//	Verifikovati da je prikazana poruka ERROR: Invalid username. Lost your password?
+		navPage.getMyAccount().click();
+		
+		loginPage.getUserNameInput().sendKeys("invaliduser");
+		loginPage.getPasswordInput().sendKeys("pass1234");
+		loginPage.getloginBtn().click();
+		loginPage.waitForErrorMsg();
+		
+		Assert.assertEquals(
+				loginPage.getErrorMsg().getText(),
+				"ERROR: Invalid username. Lost your password?",
+				"Error: message is wrong");
+	}
+	
+	@Test(priority=70)
+	public void verifySuccessfulLogin() {
+//		Test #7:  Verify successful login
+//		Prioritet = 70
+//		Koraci:
+//	Kliknite na my account link
+//	Unesite username customer
+//	Unesite validan pass crz7mrb.KNG3yxv1fbn
+//	Klik na login dugme
+//	Verifikovati na stranici pise Hello Katalon Parlitul_Changed
+//		Dopunite pageve za sve sto je potrebno za ove testove, ako je potrebno kreirajte i nove pageve
+		navPage.getMyAccount().click();
+		
+		loginPage.getUserNameInput().sendKeys("customer");
+		loginPage.getPasswordInput().sendKeys("crz7mrb.KNG3yxv1fbn");
+		loginPage.getloginBtn().click();
+		loginPage.wairForSuccessfulLoginMsg();
+		
+		Assert.assertTrue(
+				loginPage.getSuccessfulLoginMsg().getText().equals("Katalon Parlitul_Changed"),
+				"Error: message is wrong");
+		
 	}
 
 }
