@@ -20,23 +20,23 @@ public class TopMenuPage {
 	}
 	
 	public WebElement getWomenLink () {
-		return driver.findElement(By.linkText("Women"));
+		return driver.findElement(By.xpath("//ul[contains(@class, 'sf-menu')]/li[1]"));
 	}
 	
 	public WebElement getDressesLink () {
-		return driver.findElement(By.linkText("Dresses"));
+		return driver.findElement(By.xpath("//ul[contains(@class, 'sf-menu')]/li[2]"));
 	}
 
 	public WebElement getTshirtsLink () {
-		return driver.findElement(By.linkText("T-shirts"));
+		return driver.findElement(By.xpath("//ul[contains(@class, 'sf-menu')]/li[3]"));
 	}
 	
 	public WebElement getWomenDropdown() {
-		
+		return driver.findElement(By.xpath("//ul[contains(@class, 'sf-menu')]/li[1]/ul"));
 	}
 	
 	public WebElement getDressesDropdown() {
-		
+		return driver.findElement(By.xpath("//ul[contains(@class, 'sf-menu')]/li[2]/ul"));
 	}
 
 

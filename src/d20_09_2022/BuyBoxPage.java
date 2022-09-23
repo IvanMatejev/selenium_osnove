@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 public class BuyBoxPage {
 //	input za kolicinu
@@ -45,5 +47,16 @@ public class BuyBoxPage {
 		actions.moveToElement(getAddToWishListBtn());
 		actions.perform();
 	}
+	
+	public void getSize (String size) {
+		Select color = new Select(driver.findElement(By.id("group_1")));
+		color.selectByVisibleText(size);
+	}
+	
+	public WebElement getProductPrice() {
+		return driver.findElement(By.id("our_price_display"));
+	}
+	
+	
 
 }
