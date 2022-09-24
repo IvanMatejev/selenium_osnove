@@ -60,7 +60,7 @@ public class AutomationPracticeTests extends BasicTestHW20_09 {
 		
 		Assert.assertTrue(
 				productPrice * 3 == totalPrice,
-				"ERROR: Wrong price");
+				"ERROR: Wrong total price");
 		
 		layerCartPage.getContinueToShopingBtn().click();
 		
